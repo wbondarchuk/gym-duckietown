@@ -2,8 +2,7 @@
 # manual
 
 """
-This script allows you to manually control the simulator or Duckiebot
-using the keyboard arrows.
+Этот скрипт позволяет вручную управлять симулятором или Duckiebot'ом с помощью стрелок клавиатуры.
 """
 from PIL import Image
 import argparse
@@ -53,8 +52,7 @@ env.render()
 @env.unwrapped.window.event
 def on_key_press(symbol, modifiers):
     """
-    This handler processes keyboard commands that
-    control the simulation
+Этот обработчик обрабатывает команды клавиатуры, управляющие симуляцией
     """
 
     if symbol == key.BACKSPACE or symbol == key.SLASH:
@@ -75,15 +73,14 @@ def on_key_press(symbol, modifiers):
     #     save_img('screenshot.png', img)
 
 
-# Register a keyboard handler
+# Регистрация обработчика клавиатуры
 key_handler = key.KeyStateHandler()
 env.unwrapped.window.push_handlers(key_handler)
 
 
 def update(dt):
     """
-    This function is called at every frame to handle
-    movement/stepping and redrawing
+Эта функция вызывается в каждом кадре для обработки перемещения/шага и перерисовки
     """
     wheel_distance = 0.102
     min_rad = 0.08
@@ -103,9 +100,9 @@ def update(dt):
 
     v1 = action[0]
     v2 = action[1]
-    # Limit radius of curvature
+    # Предельный радиус кривизны
     if v1 == 0 or abs(v2 / v1) > (min_rad + wheel_distance / 2.0) / (min_rad - wheel_distance / 2.0):
-        # adjust velocities evenly such that condition is fulfilled
+        # отрегулируйте скорости равномерно таким образом, чтобы условие было выполнено
         delta_v = (v2 - v1) / 2 - wheel_distance / (4 * min_rad) * (v1 + v2)
         v1 += delta_v
         v2 -= delta_v
@@ -113,7 +110,7 @@ def update(dt):
     action[0] = v1
     action[1] = v2
 
-    # Speed boost
+    # Ускорение
     if key_handler[key.LSHIFT]:
         action *= 1.5
 
@@ -136,7 +133,7 @@ def update(dt):
 
 pyglet.clock.schedule_interval(update, 1.0 / env.unwrapped.frame_rate)
 
-# Enter main event loop
+# Войти в основной цикл событий
 pyglet.app.run()
 
 env.close()
