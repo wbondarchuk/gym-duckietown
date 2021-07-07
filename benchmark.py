@@ -6,20 +6,20 @@ import numpy as np
 
 from gym_duckietown.envs import DuckietownEnv
 
-# Benchmark loading time
+# Benchmark время загрузки
 st = time.time()
 env = DuckietownEnv(max_steps=20000, map_name="loop_obstacles")
 env.seed(0)
 env.reset()
 load_time = 1000 * (time.time() - st)
 
-# Benchmark the reset time
+# Benchmark время сброса
 st = time.time()
 for i in range(100):
     env.reset()
 reset_time = 1000 * (time.time() - st) / 100
 
-# Benchmark the rendering/update speed
+# Benchmark скорость рендера/обновления
 num_frames = 0
 st = time.time()
 
@@ -29,7 +29,7 @@ while True:
     if dt > 5:
         break
 
-    # Slow speed to minimize resets
+    # Медленная скорость для минимизации сброса
     action = np.array([0.01, 0.01])
     obs, reward, done, info = env.step(action)
 
