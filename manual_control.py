@@ -79,9 +79,6 @@ env.unwrapped.window.push_handlers(key_handler)
 
 
 def update(dt):
-    """
-Эта функция вызывается в каждом кадре для обработки перемещения/шага и перерисовки
-    """
     wheel_distance = 0.102
     min_rad = 0.08
     action = np.array([0.0, 0.0])
