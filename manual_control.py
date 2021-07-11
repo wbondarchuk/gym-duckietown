@@ -84,9 +84,7 @@ def update(dt):
     """
     wheel_distance = 0.102
     min_rad = 0.08
-
     action = np.array([0.0, 0.0])
-
     if key_handler[key.UP]:
         action += np.array([0.44, 0.0])
     if key_handler[key.DOWN]:
@@ -106,28 +104,20 @@ def update(dt):
         delta_v = (v2 - v1) / 2 - wheel_distance / (4 * min_rad) * (v1 + v2)
         v1 += delta_v
         v2 -= delta_v
-
     action[0] = v1
     action[1] = v2
-
     # Ускорение
     if key_handler[key.LSHIFT]:
         action *= 1.5
-
     obs, reward, done, info = env.step(action)
     print("step_count = %s, reward=%.3f" % (env.unwrapped.step_count, reward))
-
     if key_handler[key.RETURN]:
-
         im = Image.fromarray(obs)
-
         im.save("screen.png")
-
     if done:
         print("done!")
         env.reset()
         env.render()
-
     env.render()
 
 
